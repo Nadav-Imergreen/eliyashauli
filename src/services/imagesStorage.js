@@ -1,7 +1,7 @@
 // Firebase imports
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
 import { db, storage } from "./config";
-import { doc, getDoc, addDoc, collection } from "firebase/firestore";
+import { getDocs, addDoc, collection } from "firebase/firestore";
 
 
 export async function uploadImageToStorage(imageFile) {
@@ -40,6 +40,20 @@ export async function saveImageUrls(url) {
         throw error;
     }
 }
+
+export async function getImages() {
+    try {
+        const querySnapshot = await getDocs(collection(db, "images"));
+        const imagesContainer = querySnapshot.docs.map(doc => doc.data());
+        console.log("INFO: Images successfully fetched from DB");
+        return imagesContainer;
+    } catch (error) {
+        console.error("ERROR: Failed to fetch images:", error.message);
+        throw error;
+    }
+}
+
+
 
 
 // Delete image by index
