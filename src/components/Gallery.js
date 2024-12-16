@@ -6,6 +6,7 @@ import Loading from './Loading';
 import ResultsTable from './ResulteTable';
 
 function Gallery() {
+
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);

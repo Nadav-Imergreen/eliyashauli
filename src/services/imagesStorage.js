@@ -2,7 +2,7 @@
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
 import { db, storage } from "./config";
 import { getDocs, addDoc, collection } from "firebase/firestore";
-
+import { doc, updateDoc } from 'firebase/firestore';
 
 export async function uploadImageToStorage(imageFile) {
     try {
@@ -16,17 +16,18 @@ export async function uploadImageToStorage(imageFile) {
         console.error("Error uploading image to storage:", error.message);
         throw error;
     }
-}
+};
 
-
-export async function saveImageUrls(url) {
+export async function saveImageUrls(data) {
     try {
         // Specify the correct path: collection/document
         //const userDocRef = doc(db, "users", "paintings"); // Adjust the path based on your Firestore structure
         //console.log(url);
         // Add a new document with a generated id.
         const docRef = await addDoc(collection(db, "images"), {
-            url: url,
+            url: data.url,
+            name: data.name,
+            description: data.description,
         });
 
         // Append new URLs to existing ones
@@ -39,16 +40,20 @@ export async function saveImageUrls(url) {
         console.error("ERROR: Failed to save image URLs:", error.message);
         throw error;
     }
-}
+};
 
 export async function getImages() {
     try {
         const querySnapshot = await getDocs(collection(db, "images"));
-        const imagesContainer = querySnapshot.docs.map(doc => doc.data());
-        console.log("INFO: Images successfully fetched from DB");
+        const imagesContainer = [];
+        querySnapshot.forEach((doc) => {
+            imagesContainer.push({ id: doc.id, ...doc.data() }); // Add the document id
+        });
+
+        console.log("INFO: Images retrieved successfully");
         return imagesContainer;
     } catch (error) {
-        console.error("ERROR: Failed to fetch images:", error.message);
+        console.error("ERROR: Failed to retrieve images:", error.message);
         throw error;
     }
 }

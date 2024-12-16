@@ -1,23 +1,17 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
+import ImageCard from "./ImageCard";
 
-/**
- * This component represents a table for displaying search results as movie cards.
- *
- * @param {Object[]} searchResults - An array of movie objects representing the search results.
- * @returns {JSX.Element} The rendered component.
- */
 function ResultsTable({ searchResults }) {
 
     return (
-        <Row xs={1} md={2} lg={3} className="g-4">
-            {searchResults.map((image) => (
-                <Col key={image.id}>
-               { image.url}
-                    {/*<MovieCard movie={image}/>*/}
-                </Col>
-            ))}
-        </Row>
+        <Container>
+            <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+                {searchResults.map((image) => (
+                    <ImageCard key={image.id} image={image} />
+                ))}
+            </Row>
+        </Container>
     );
 }
 
