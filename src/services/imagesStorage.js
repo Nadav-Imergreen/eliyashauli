@@ -57,7 +57,7 @@ export async function getImages() {
     }
 }
 
-// Delete image by index
+//// Delete image by index
 //export async function deletePhoto(index) {
 //   // const userId = auth.currentUser.uid;
 //    const userDocRef = doc(db, 'paintings');
