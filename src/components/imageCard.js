@@ -9,13 +9,15 @@ function ImageCard({ image }) {
                     variant="top"
                     src={image.url}
                     alt={image.name || "Image"}
-                    style={{ height: "200px", objectFit: "cover" }}
+                    style={{
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "contain", // Ensures the entire image fits within the card
+                        objectPosition: "center" // Centers the image
+                    }}
                 />
                 <Card.Body>
                     <Card.Title>{image.name || "Untitled"}</Card.Title>
-                    <Card.Text>
-                        {image.description || "No description available"}
-                    </Card.Text>
                 </Card.Body>
             </Card>
         </Col>

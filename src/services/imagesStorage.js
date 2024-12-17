@@ -2,7 +2,6 @@
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
 import { db, storage } from "./config";
 import { getDocs, addDoc, collection } from "firebase/firestore";
-import { doc, updateDoc } from 'firebase/firestore';
 
 export async function uploadImageToStorage(imageFile) {
     try {
@@ -57,9 +56,6 @@ export async function getImages() {
         throw error;
     }
 }
-
-
-
 
 // Delete image by index
 //export async function deletePhoto(index) {
